@@ -1,6 +1,14 @@
 import { Feather } from "@expo/vector-icons";
 import React from "react";
-import { FlatList, StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Image,
+  ImageBackground,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 const DATA = [
@@ -70,19 +78,24 @@ const UpcomingWeather = () => {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-        <Text>Upcoming Weather</Text>
-        <FlatList
-          data={DATA}
-          renderItem={({ item }) => (
-            <WeatherItem
-              dt_txt={item.dt_txt}
-              min={item.main.temp_min}
-              max={item.main.temp_max}
-              condition={item.weather[0].main}
-            />
-          )}
-          keyExtractor={(item) => item.dt_txt}
-        />
+        <ImageBackground
+          source={require("../../assets/sunset-3325080_1280.jpg")}
+          style={styles.image}
+        >
+          <Text>Upcoming Weather</Text>
+          <FlatList
+            data={DATA}
+            renderItem={({ item }) => (
+              <WeatherItem
+                dt_txt={item.dt_txt}
+                min={item.main.temp_min}
+                max={item.main.temp_max}
+                condition={item.weather[0].main}
+              />
+            )}
+            keyExtractor={(item) => item.dt_txt}
+          />
+        </ImageBackground>
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -112,5 +125,8 @@ const styles = StyleSheet.create({
   date: {
     color: "white",
     fontSize: 15,
+  },
+  image: {
+    flex: 1,
   },
 });
