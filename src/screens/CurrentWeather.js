@@ -3,6 +3,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import RowText from "../components/RowText";
+import { weatherType } from "../utilities/weatherType";
 
 export default function CurrentWeather() {
   return (
@@ -25,7 +26,7 @@ export default function CurrentWeather() {
           messageOneStyles={styles.description}
           messageTwoStyles={styles.message}
           messageOne={"It is sunny"}
-          messageTwo={"Its perfect t-shirt weather"}
+          messageTwo={weatherType["Thunderstorm"].message}
         />
       </SafeAreaView>
     </SafeAreaProvider>
