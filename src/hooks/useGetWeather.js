@@ -3,7 +3,7 @@ import * as Location from "expo-location";
 import { useEffect, useState } from "react";
 
 function useGetWeather() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [location, setLocation] = useState({
     lat: [],
     long: [],
@@ -12,16 +12,16 @@ function useGetWeather() {
   const [weatherData, setWeatherData] = useState([]);
 
   const fetchWeatherData = async () => {
+    setLoading(true);
     try {
       const res = await fetch(
-        `http://api.openweathermap.org/data/2.5/forecast?lat=${location?.lat}&lon=${location?.long}&appid=${WEATHER_API_KEY}`
+        `http://api.openweathermap.org/data/2.5/forecast?lat=${location?.lat}&lon=${location?.long}&appid=${WEATHER_API_KEY}&units=metric`
       );
       const data = await res.json();
       setWeatherData(data);
+      setLoading(false);
     } catch (error) {
       setError("Could not fetch weather");
-    } finally {
-      setLoading(false);
     }
   };
 

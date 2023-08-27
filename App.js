@@ -7,7 +7,7 @@ import useGetWeather from "./src/hooks/useGetWeather";
 export default function App() {
   const { loading, error, weatherData } = useGetWeather();
 
-  if (weatherData && weatherData.list) {
+  if (weatherData && weatherData?.list) {
     return (
       <NavigationContainer>
         <Tabs weatherData={weatherData} />
@@ -15,11 +15,13 @@ export default function App() {
     );
   }
 
-  return (
-    <View style={style.container}>
-      <ActivityIndicator size={"large"} color={"blue"} />
-    </View>
-  );
+  if (loading) {
+    return (
+      <View style={style.container}>
+        <ActivityIndicator size={"large"} color={"blue"} />
+      </View>
+    );
+  }
 }
 
 const style = StyleSheet.create({

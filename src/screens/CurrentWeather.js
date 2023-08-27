@@ -5,28 +5,43 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import RowText from "../components/RowText";
 import { weatherType } from "../utilities/weatherType";
 
-export default function CurrentWeather() {
+export default function CurrentWeather({ weatherData }) {
+  const {
+    main: { temp, feels_like, temp_max, temp_min },
+    weather,
+  } = weatherData;
+  const weatherCondition = weather[0]?.main;
+
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.wrapper}>
+      <SafeAreaView
+        style={[
+          styles.wrapper,
+          { backgroundColor: weatherType[weatherCondition].backgroundColor },
+        ]}
+      >
         <View style={styles.container}>
-          <Feather name="sun" size={100} color="black" />
-          <Text style={styles.temp}>6</Text>
-          <Text style={styles.feels}>Feels like 5</Text>
+          <Feather
+            name={weatherType[weatherCondition].icon}
+            size={100}
+            color="white"
+          />
+          <Text style={styles.temp}>{temp}</Text>
+          <Text style={styles.feels}>{`Feels like ${feels_like} °`}</Text>
           <RowText
             containerStyles={styles.highLowWrapper}
             messageOneStyles={styles.highLow}
             messageTwoStyles={styles.highLow}
-            messageOne={"High : 8"}
-            messageTwo={"Low : 8"}
+            messageOne={`High : ${temp_max}° `}
+            messageTwo={`Low : ${temp_min}°`}
           />
         </View>
         <RowText
           containerStyles={styles.bodyWrapper}
           messageOneStyles={styles.description}
           messageTwoStyles={styles.message}
-          messageOne={"It is sunny"}
-          messageTwo={weatherType["Thunderstorm"].message}
+          messageOne={weather[0].description}
+          messageTwo={weatherType[weatherCondition].message}
         />
       </SafeAreaView>
     </SafeAreaProvider>
