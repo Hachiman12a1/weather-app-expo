@@ -42,11 +42,7 @@ function useGetWeather() {
     })();
   }, [location?.lat, location?.long]);
 
-  return {
-    loading,
-    error,
-    weatherData,
-  };
+  return [loading, error, weatherData];
 }
 
 export default useGetWeather;
